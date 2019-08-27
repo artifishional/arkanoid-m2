@@ -1,0 +1,16 @@
+{
+  "name": "arkanoid-m2",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "ai.2019",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --experimental-modules ./node_modules/air-m2-builder2/bin/server.mjs --dev-server"
+  },
+  "dependencies": {
+    "air-m2": "^0.6.5"
+  },
+  "devDependencies": {
+    "air-application": "^2.0.2"
+  }
+}

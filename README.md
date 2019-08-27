@@ -1,1 +1,1 @@
-# arkanoid-m2
+# Classic arkanoid powered by m2
