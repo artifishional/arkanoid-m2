@@ -8,6 +8,7 @@
     "dev": "node --experimental-modules ./node_modules/air-m2-builder2/bin/server.mjs --dev-server"
   },
   "dependencies": {
+    "air-stream": "git+ssh://git@github.com:artifishional/air-stream.git#draft",
     "air-m2": "git+ssh://git@github.com:artifishional/air-m2.git#nvmi"
   },
   "devDependencies": {
