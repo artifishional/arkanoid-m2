@@ -1,7 +1,7 @@
 import { stream } from "m2"
 import actors from "./actors"
-
-
+import controller from "./controller"
+import {default as defs} from "./defs"
 
 const units = ({ schema }) => {
 
@@ -41,13 +41,15 @@ const units = ({ schema }) => {
 const ups = () => {
 
   return stream( emt => {
-    setInterval( emt, 2000, null )
+    setInterval( emt, 20, null )
   } );
 
 };
 
 export default {
 
+  defs,
+  controller,
   ups,
   units,
   actors,
