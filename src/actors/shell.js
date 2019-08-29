@@ -1,15 +1,7 @@
 import { CANVAS, SHELL } from '../defs';
+import { collision } from '../math';
 
 const { min, max, abs } = Math;
-
-function collision(rect1, rect2) {
-  return (
-    rect1.x < rect2.x1 &&
-    rect1.x1 > rect2.x &&
-    rect1.y < rect2.y1 &&
-    rect1.y1 > rect2.y
-  );
-}
 
 function shell({ x, y, ...state }) {
   return {
@@ -29,9 +21,10 @@ export default ( { obtain, player, id } ) => obtain("@ups")
   ])
   .reduceF(
     [shell({
-      x: 1800,
-      y: 500,
-      speed: { x: 15, y: 10 },
+      kind: "shell",
+      x: 200,
+      y: 300,
+      speed: { x: 7, y: 13 },
       id,
     })],
     ([ { x, y, prev, speed, id } ], [, [ units ] ]) => {
@@ -47,9 +40,9 @@ export default ( { obtain, player, id } ) => obtain("@ups")
       let x1 = x + SHELL.D;
       let y1 = y + SHELL.D;
 
-      const _collision = units.findIndex( ([unit]) => {
-        return id !== unit.id && collision({x, y, x1, y1}, unit)
-      });
+      const _collision = units
+        .filter( ([unit]) => unit.id !== id && unit.active )
+        .findIndex( ([unit]) => collision({x, y, x1, y1}, unit));
 
 
       if (_collision > -1) {
@@ -101,6 +94,7 @@ export default ( { obtain, player, id } ) => obtain("@ups")
       }
 
       return [{
+        kind: "shell",
         cx: x + SHELL.R, cy: y + SHELL.R,
         prev: _prev, x, y, x1, y1, speed, id
       }];

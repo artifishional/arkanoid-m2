@@ -3,7 +3,7 @@ import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
 
-const units = ({ schema }) => {
+const units = ({ schema, obtain }) => {
 
   return stream((emt) => {
 
@@ -41,7 +41,7 @@ const units = ({ schema }) => {
 const ups = () => {
 
   return stream( emt => {
-    setInterval( emt, 20, null )
+    setInterval( emt, 10, null )
   } );
 
 };
