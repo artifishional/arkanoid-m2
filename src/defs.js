@@ -17,4 +17,9 @@ export const SHELL = {
 	SPEED: 25,
 };
 
-export default () => stream( emt => emt( { CANVAS, SHIP, SHELL } ) );
+export const CELL = {
+	WIDTH: 50,
+	HEIGHT: 50,
+};
+
+export default () => stream( emt => emt( { CANVAS, SHIP, SHELL, CELL } ) );
