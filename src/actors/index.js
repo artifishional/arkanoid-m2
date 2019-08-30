@@ -4,7 +4,7 @@ import cell from "./cell"
 
 let ACTORS_UNIQUE_ID_COUNTER = 1;
 
-export default ( { obtain, kind, player, index } ) => {
+export default ( { obtain, kind, player, config } ) => {
 
   if(kind === "ship") {
 		return ship({ obtain, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
@@ -13,7 +13,7 @@ export default ( { obtain, kind, player, index } ) => {
 	  return shell({ obtain, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
   }
 	else if(kind === "cell") {
-		return cell({ obtain, id: ACTORS_UNIQUE_ID_COUNTER++, index });
+		return cell({ obtain, id: ACTORS_UNIQUE_ID_COUNTER++, config });
 	}
   throw "unsupported actor model kind";
   

@@ -3,6 +3,17 @@ import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
 
+const MAPPER = [
+  { x: 100, y: 200 }, { x: 200, y: 200 }, { x: 300, y: 200 }, { x: 400, y: 200 }, { x: 500, y: 200 },
+  { x: 600, y: 200 }, { x: 700, y: 200 }, { x: 800, y: 200 }, { x: 900, y: 200 }, { x: 2000, y: 200 },
+];
+
+function cells ({ schema, obtain }) {
+  return stream( emt => {
+    emt( [ MAPPER.map( config => obtain("@actors", { kind: "cell", config }) ) ] );
+  } );
+}
+
 const units = ({ schema, obtain }) => {
 
   return stream((emt) => {
@@ -48,6 +59,7 @@ const ups = () => {
 
 export default {
 
+  cells,
   defs,
   controller,
   ups,
