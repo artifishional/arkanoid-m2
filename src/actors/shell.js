@@ -7,8 +7,6 @@ function shell({ x, y, ...state }) {
   return {
     x, y, ...state,
     cx: x + SHELL.R, cy: y + SHELL.R,
-    //предыдущее состояние здесь не может быть верным
-    prev: { x, y },
     x1: x + SHELL.D, y1: y + SHELL.D,
   };
 }
@@ -27,9 +25,9 @@ export default ( { obtain, player, id } ) => obtain("@ups")
       speed: { x: 7, y: 13 },
       id,
     })],
-    ([ { x, y, prev, speed, id } ], [, [ units ] ]) => {
+    ([ { x, y, speed, id } ], [, [ units ] ]) => {
 
-      const _prev = { x, y };
+      const prev = { x, y };
 
       x += speed.x;
       y += speed.y;
@@ -96,7 +94,7 @@ export default ( { obtain, player, id } ) => obtain("@ups")
       return [{
         kind: "shell",
         cx: x + SHELL.R, cy: y + SHELL.R,
-        prev: _prev, x, y, x1, y1, speed, id
+        x, y, x1, y1, speed, id,
       }];
     }
   );
