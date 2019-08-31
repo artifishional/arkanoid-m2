@@ -39,10 +39,10 @@ export default ( { obtain, player, id } ) => obtain("@ups")
       let y1 = y + SHELL.D;
 
       const _collision = units
-        .filter( ([unit]) => unit.id !== id && unit.active )
-        .findIndex( ([unit]) => collision({x, y, x1, y1}, unit));
-
-
+        .findIndex( ([unit]) =>
+	        unit.id !== id && unit.active && collision({x, y, x1, y1}, unit)
+        );
+      
       if (_collision > -1) {
         const [ unit ] = units[_collision];
         let dtx = 0;
