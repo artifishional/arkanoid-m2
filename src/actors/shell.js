@@ -14,8 +14,6 @@ function shell({ x, y, ...state }) {
 export default ( { obtain, player, id } ) => obtain("@ups")
   .withlatest([
     obtain("@units"),
-    obtain("@controller", { id: player }),
-    obtain("@actors", { kind: "ship" })
   ])
   .reduceF(
     [shell({
