@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "air-stream": "git+ssh://git@github.com:artifishional/air-stream.git#draft",
-    "air-m2": "git+ssh://git@github.com:artifishional/air-m2.git#nvmi"
+    "air-m2": "git+ssh://git@github.com:artifishional/air-m2.git#nvmi",
+    "air-anime": "git+ssh://git@github.com:artifishional/air-anime.git#dev"
   },
   "devDependencies": {
     "air-application": "^2.0.2"
