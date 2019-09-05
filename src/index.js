@@ -21,23 +21,19 @@ function cells ({ schema, obtain }) {
 const units = ({ schema, obtain }) => {
 
   return stream2(null, (e) => {
-
-
-    const store = [];
+    
     const map = new Map();
 
-    e([ store ]);
+    e([ [] ]);
 
     function handler() {
       e( [  [...map.values()] ] );
     }
 
     schema.parent.get("actors").then((schema) => schema.sentry.on(([entities]) => {
-
-      const added = entities.filter(({ entity }) => !store.includes(entity));
-
-      store.push(...added);
-
+      
+      const added = entities.filter(({ entity }) => !map.has(entity));
+      
       added.map( ({ entity }) => {
         entity.on( (data) => {
           map.set(entity, data);
@@ -49,7 +45,8 @@ const units = ({ schema, obtain }) => {
 
     }));
 
-  });
+  })
+      .store();
 
 };
 
