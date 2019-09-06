@@ -4,12 +4,9 @@ import controller from "./controller"
 import {default as defs} from "./defs"
 
 const MAPPER = [
-  { x: 100,  y: 200 }, { x: 200,  y: 200 }, { x: 300,  y: 200 },
-  { x: 400,  y: 200 }, { x: 500,  y: 200 }, { x: 600,  y: 200 },
-  { x: 700,  y: 200 }, { x: 800,  y: 200 }, { x: 900,  y: 200 },
-  { x: 1000, y: 200 }, { x: 1100, y: 200 }, { x: 1200, y: 200 },
-  { x: 1300, y: 200 }, { x: 1400, y: 200 }, { x: 1500, y: 200 },
-  { x: 1600, y: 200 }, { x: 1700, y: 200 }, { x: 1800, y: 200 },
+  ...Array(150)
+    .fill(0)
+    .map( (_, i) => ({ x: 25 + i % 19 * 100, y: 25 + (i / 19|0) * 100 }) )
 ];
 
 function cells ({ schema, obtain }) {

@@ -18,14 +18,16 @@ export default ({ obtain, player, id, config }) => {
     .withlatest([obtain("@units")])
     .reduceF(
       [cell({ ...config, id, })],
-      ([ { active, x1, y1, x, y, id } ], [, [ units ] ]) => {
+      (state, [, [ units ] ]) => {
         const [ shell ] = units.find( ([{ kind }]) => kind === "shell" ) || [ null ];
         if(shell) {
+          let [ { active, x1, y1, x, y, id } ] = state;
           if(collision(shell, { x1, y1, x, y })) {
             active = false;
+            state = [ { active, x1, y1, x, y, id } ];
           }
         }
-        return [{ active, x, y, x1, y1, id }];
+        return state;
       }
     );
 }
