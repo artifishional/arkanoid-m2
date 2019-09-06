@@ -1,4 +1,4 @@
-import { stream } from "m2"
+import { stream2 as stream } from "m2"
 
 export const CANVAS = {
 	WIDTH: 1920,
@@ -22,4 +22,5 @@ export const CELL = {
 	HEIGHT: 50,
 };
 
-export default () => stream( emt => emt( { CANVAS, SHIP, SHELL, CELL } ) );
+export default () => stream( null, e => e( [{ CANVAS, SHIP, SHELL, CELL }] ) )
+	.store();
