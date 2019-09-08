@@ -4,7 +4,7 @@ import controller from "./controller"
 import {default as defs} from "./defs"
 
 const MAPPER = [
-  ...Array(150)
+  ...Array(50)
     .fill(0)
     .map( (_, i) => ({ x: 25 + i % 19 * 100, y: 25 + (i / 19|0) * 100 }) )
 ];
@@ -47,7 +47,10 @@ const units = ({ schema, obtain }) => {
 
 };
 
-const ups = () => stream2.ups();
+//const ups = () => stream2.ups();
+
+const socket = new WebSocket("ws://localhost:3000");
+const ups = () => stream2.fromEndPoint(socket, "ups");
 
 export default {
 
