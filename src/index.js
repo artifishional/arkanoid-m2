@@ -2,6 +2,7 @@ import { stream2 } from "m2"
 import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
+import endpoint from "./end-point"
 
 const MAPPER = [
   ...Array(50)
@@ -21,7 +22,7 @@ const units = ({ schema, obtain }) => {
     
     const map = new Map();
 
-    e([ [] ]);
+    //e([ [] ]);
 
     function handler() {
       e( [  [...map.values()] ] );
@@ -49,11 +50,12 @@ const units = ({ schema, obtain }) => {
 
 //const ups = () => stream2.ups();
 
-const socket = new WebSocket("ws://localhost:3000");
-const ups = () => stream2.fromEndPoint(socket, "ups");
+//const socket = new WebSocket("ws://localhost:3000");
+const ups = ({ obtain }) => stream2.fromEndPoint(obtain("end-point"), "ups");
 
 export default {
 
+  ["end-point"]: endpoint,
   cells,
   defs,
   controller,
