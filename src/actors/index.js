@@ -4,16 +4,15 @@ import cell from "./cell"
 
 let ACTORS_UNIQUE_ID_COUNTER = 1;
 
-export default ( { obtain, kind, player, index } ) => {
-
+export default ( { obtain, player, index, signature: { kind, ...signature } }) => {
   if(kind === "ship") {
-		return ship({ obtain, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
+		return ship({ obtain, signature, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
 	}
   else if(kind === "shell") {
-	  return shell({ obtain, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
+	  return shell({ obtain, signature, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
   }
 	else if(kind === "cell") {
-		return cell({ obtain, id: ACTORS_UNIQUE_ID_COUNTER++, index });
+		return cell({ obtain, signature, id: ACTORS_UNIQUE_ID_COUNTER++, index });
 	}
   throw "unsupported actor model kind";
   
