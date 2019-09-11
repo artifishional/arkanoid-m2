@@ -2,7 +2,7 @@ import { stream2, RemouteService } from "m2"
 
 const remoteServiceConnection =
   RemouteService.fromWebSocketConnection({
-    host: "http://localhost",
+    host: "localhost",
     port: "3000",
   });
 
