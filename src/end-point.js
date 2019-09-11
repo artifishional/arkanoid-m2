@@ -1,4 +1,6 @@
-import { stream2 } from "m2"
+import { stream2, RemouteService } from "m2"
 
-const ws = new WebSocket("ws://localhost:3000");
-export default () => stream2.from(ws);
+export default () => RemouteService.fromWebSocketConnection({
+  host: "http://localhost",
+  port: "3000",
+});
