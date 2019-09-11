@@ -2,7 +2,7 @@ import { stream2 } from "m2"
 import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
-import endpoint from "./end-point"
+import remoteService from "./remote-service"
 
 const MAPPER = [
   ...Array(50)
@@ -12,7 +12,7 @@ const MAPPER = [
 
 function cells ({ schema, obtain }) {
   return stream2( null, e => {
-	  e( [ MAPPER.map( config => obtain("@actors", { kind: "cell", config }) ) ] );
+	  e( [ MAPPER.map( (_, index) => obtain("@actors", { kind: "cell", index }) ) ] );
   } );
 }
 
@@ -51,11 +51,11 @@ const units = ({ schema, obtain }) => {
 //const ups = () => stream2.ups();
 
 //const socket = new WebSocket("ws://localhost:3000");
-const ups = ({ obtain }) => stream2.fromRemouteService(obtain("@end-point"), "ups");
+const ups = ({ obtain }) => stream2.fromRemouteService(obtain("@remote-service"), { name: "ups" });
 
 export default {
 
-  ["end-point"]: endpoint,
+  ["remote-service"]: remoteService,
   cells,
   defs,
   controller,

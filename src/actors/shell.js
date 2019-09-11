@@ -16,13 +16,7 @@ export default ( { obtain, player, id } ) => obtain("@ups")
     obtain("@units"),
   ])
   .reduceF(
-    [shell({
-      kind: "shell",
-      x: 200,
-      y: 300,
-      speed: { x: 7, y: 13 },
-      id,
-    })],
+    obtain("@remote-service", { name: "shell" }),
     ([ { x, y, speed, id } ], [, [ units ] ]) => {
 
       const prev = { x, y };

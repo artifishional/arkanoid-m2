@@ -10,7 +10,7 @@ function ship({ x, y, ...state }) {
 export default ({ obtain, player, id }) => obtain("@ups")
   .withlatest([obtain("@units"), obtain("@controller", { id: player })])
   .reduceF(
-    stream2.fromRemouteService(obtain("@end-point"), "ship"),
+    obtain("@remote-service", { name: "ship" }),
     ([ { active, x, y, id } ], [,,[{ axis }]]) => {
       x += axis * SHIP.SPEED;
       x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);

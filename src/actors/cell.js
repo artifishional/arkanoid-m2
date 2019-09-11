@@ -13,11 +13,11 @@ function cell({ x, y, ...state }) {
   return { active: true, x, y, ...state, x1: x + CELL.WIDTH, y1: y + CELL.HEIGHT };
 }
 
-export default ({ obtain, player, id, config }) => {
+export default ({ obtain, player, id, index }) => {
   return obtain("@ups")
     .withlatest([obtain("@units")])
     .reduceF(
-      [cell({ ...config, id, })],
+        obtain("@remote-service", { name: "cell", index }),
       (state, [, [ units ] ]) => {
         const [ shell ] = units.find( ([{ kind }]) => kind === "shell" ) || [ null ];
         if(shell) {
