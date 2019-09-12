@@ -7,10 +7,5 @@ const remoteServiceConnection =
   });
 
 export default ({ obtain, signature }) => {
-
-  if(!Object.keys(signature).length) {
-    debugger;
-  }
-
-  return stream2.fromRemouteService(remoteServiceConnection, signature);
+  return stream2.fromRemouteService(remoteServiceConnection, signature).store();
 }
