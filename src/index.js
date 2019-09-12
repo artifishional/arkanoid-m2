@@ -5,7 +5,7 @@ import {default as defs} from "./defs"
 import remoteService from "./remote-service"
 
 const MAPPER = [
-  ...Array(50)
+  ...Array(1)
     .fill(0)
     .map( (_, i) => ({ x: 25 + i % 19 * 100, y: 25 + (i / 19|0) * 100 }) )
 ];
@@ -51,7 +51,7 @@ const units = ({ schema, obtain }) => {
 //const ups = () => stream2.ups();
 
 //const socket = new WebSocket("ws://localhost:3000");
-const ups = ({ obtain }) => stream2.fromRemouteService(obtain("@remote-service"), { name: "ups" });
+const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
 export default {
 
