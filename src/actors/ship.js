@@ -8,7 +8,12 @@ function ship({ x, y, ...state }) {
 }
 
 export default ({ obtain, player, id }) => obtain("@ups")
-  .withlatest([obtain("@units"), obtain("@controller", { id: player })])
+  .withlatest(
+    [obtain("@controller", { id: player })],
+    (units, controller) => {
+      debugger;
+    }
+  )
   .reduceF(
     obtain("@remote-service", { name: "ship" }),
     ([ { active, x, y, id } ], [,,[{ axis }]]) => {
