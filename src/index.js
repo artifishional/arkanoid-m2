@@ -47,10 +47,10 @@ const units = ({ schema, obtain }) => {
 
 };
 
-//const ups = () => stream2.ups();
+const ups = () => stream2.ups();
 
-const socket = new WebSocket("ws://localhost:3000");
-const ups = () => stream2.fromEndPoint(socket, "ups");
+//const socket = new WebSocket("ws://localhost:3000");
+//const ups = () => stream2.fromEndPoint(socket, "ups");
 
 export default {
 
