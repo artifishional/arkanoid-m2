@@ -13,7 +13,7 @@ export default ( { obtain, kind, player, config, signature } ) => {
 	  return shell({ obtain, player, id: ACTORS_UNIQUE_ID_COUNTER++ });
   }
 	else if(signature.kind === "cell") {
-		return cell({ obtain, id: ACTORS_UNIQUE_ID_COUNTER++, config });
+		return cell({ obtain, id: ACTORS_UNIQUE_ID_COUNTER++, signature });
 	}
   throw "unsupported actor model kind";
   

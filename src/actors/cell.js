@@ -13,7 +13,7 @@ function cell({ x, y, ...state }) {
   return { active: true, x, y, ...state, x1: x + CELL.WIDTH, y1: y + CELL.HEIGHT };
 }
 
-export default ({ obtain, player, id, config }) => {
+export default ({ obtain, player, id, signature: { config } }) => {
   return obtain("@ups")
     .withlatest([obtain("@units")])
     .reduceF(
@@ -29,5 +29,5 @@ export default ({ obtain, player, id, config }) => {
         }
         return state;
       }
-    );
+    )
 }
