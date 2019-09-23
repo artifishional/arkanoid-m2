@@ -15,10 +15,12 @@ export default ({ obtain, player, id }) => obtain("@ups")
   .reduceF(
     obtain("@remote-service", { name: "ship" }),
     ([ { active, x, y, id } ], [{ axis }]) => {
-      x += axis * SHIP.SPEED;
-      x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);
-      const x1 = x + SHIP.WIDTH;
-      const y1 = y + SHIP.HEIGHT;
-      return [{ active, x, y, x1, y1, id }];
+      if(axis) {
+        x += axis * SHIP.SPEED;
+        x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);
+        const x1 = x + SHIP.WIDTH;
+        const y1 = y + SHIP.HEIGHT;
+        return [{ active, x, y, x1, y1, id }];
+      }
     }
   );
