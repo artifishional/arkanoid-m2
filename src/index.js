@@ -3,6 +3,7 @@ import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
+stream2.UPS.set(100);
 
 const MAPPER = [
   ...Array(1)
