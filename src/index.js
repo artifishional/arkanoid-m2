@@ -4,6 +4,7 @@ import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
 stream2.UPS.set(100);
+import * as players from "./players"
 
 const MAPPER = [
   ...Array(1)
@@ -17,35 +18,48 @@ function cells ({ schema, obtain }) {
   } );
 }
 
-const units = ({ schema, obtain }) => {
+const manager = ({  }) => {
 
-  return stream2(null, (e) => {
-    
-    const map = new Map();
-
-    //e([ [] ]);
-
-    function handler() {
-      e( [  [...map.values()] ] );
-    }
-
-    schema.parent.get("actors").then((schema) => schema.sentry.on(([entities]) => {
-      
-      const added = entities.filter(({ entity }) => !map.has(entity));
-      
-      added.map( ({ entity }) => {
-        entity.on( (data) => {
-          map.set(entity, data);
-          handler();
-        } );
-      } );
-
-      handler();
-
-    }));
-
-  })
+  return stream2( null, (e) => {
+  
+    e( [ [  ] ] );
+  
+  } )
       .store();
+
+};
+
+const units = ({ obtain }) => {
+
+  return stream2.reduceMap( (data) => {
+	  return [ data.map( signature => actors({ obtain, signature }) ) ];
+  }, (acc, data, action) => {
+	  if(action.name === "create") {
+		  return [
+		      [ ...acc, ...action.data.map( signature => actors({ obtain, signature }) ) ],
+              action
+          ];
+	  }
+  } );
+  
+  return stream2(null, (e, controller) => {
+    
+      let state = [];
+	
+	  controller.to(manager.on( ([evt, action = null]) => {
+		  
+		  //keyframe
+		  if(!action) {
+			  state = evt.map( signature => actors({ obtain, signature }) );
+          }
+		  else if(action.name === "create") {
+			  state = [ ...state, ...action.data.map( signature => actors({ obtain, signature }) ) ];
+          }
+		  
+	  } ));
+		
+	})
+		.store();
 
 };
 
@@ -56,6 +70,7 @@ const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
 export default {
 
+  players,
   ["remote-service"]: remoteService,
   cells,
   defs,
