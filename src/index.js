@@ -18,7 +18,7 @@ function cells ({ schema, obtain }) {
   } );
 }
 
-const manager = ({  }) => {
+const manager = () => {
 
   return stream2( null, (e) => {
   
@@ -31,35 +31,17 @@ const manager = ({  }) => {
 
 const units = ({ obtain }) => {
 
-  return stream2.reduceMap( (data) => {
-	  return [ data.map( signature => actors({ obtain, signature }) ) ];
-  }, (acc, data, action) => {
-	  if(action.name === "create") {
-		  return [
-		      [ ...acc, ...action.data.map( signature => actors({ obtain, signature }) ) ],
-              action
-          ];
-	  }
-  } );
-  
-  return stream2(null, (e, controller) => {
-    
-      let state = [];
-	
-	  controller.to(manager.on( ([evt, action = null]) => {
-		  
-		  //keyframe
-		  if(!action) {
-			  state = evt.map( signature => actors({ obtain, signature }) );
-          }
-		  else if(action.name === "create") {
-			  state = [ ...state, ...action.data.map( signature => actors({ obtain, signature }) ) ];
-          }
-		  
-	  } ));
-		
-	})
-		.store();
+  return manager().reduceF(
+    (acc, [ data, action ]) => {
+      if(action.name === "create") {
+        return [
+            [ ...acc, ...action.data.map( signature => actors({ obtain, signature }) ) ],
+                action
+        ];
+      }
+    },
+      data => data.map( signature => actors({ obtain, signature }))
+  );
 
 };
 
