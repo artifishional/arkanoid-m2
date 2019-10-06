@@ -8,7 +8,7 @@ function cell({ x, y, ...state }) {
 
 export default ({ obtain, signature }) => {
   return obtain("@ups")
-    .withlatest([obtain("@units")])
+    .withlatest([obtain("@units-data")])
     .reduceF(
         obtain("@remote-service", { name: "cell", ...signature }),
       (state, [, [ units ] ]) => {

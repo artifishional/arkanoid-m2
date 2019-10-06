@@ -13,7 +13,7 @@ function shell({ x, y, ...state }) {
 
 export default ( { obtain, player, id } ) => obtain("@ups")
   .withlatest([
-    obtain("@units"),
+    obtain("@units-data"),
   ])
   .reduceF(
     obtain("@remote-service", { name: "shell" }),

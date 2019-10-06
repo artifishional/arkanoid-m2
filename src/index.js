@@ -3,7 +3,7 @@ import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
-stream2.UPS.set(100);
+stream2.UPS.set(1);
 import * as players from "./players"
 
 const MAPPER = [
@@ -18,31 +18,66 @@ function cells ({ schema, obtain }) {
   } );
 }
 
-const manager = () => {
+const unitsMR = ( { obtain } ) => {
 
   return stream2( null, (e) => {
   
-    e( [ [  ] ] );
-  
   } )
-      .store();
+	.reduceF(
+      obtain("@remote-service", { name: "units-manager" }),
+      (acc, [ data, action ]) => {
+	      if(action.name === "create") {
+		      return [ [ ...acc, ...action.data ], action ];
+	      }
+      },
+	);
 
 };
 
 const units = ({ obtain }) => {
 
-  return manager().reduceF(
+  return unitsMR( { obtain } ).reduceF(
     (acc, [ data, action ]) => {
       if(action.name === "create") {
-        return [
-            [ ...acc, ...action.data.map( signature => actors({ obtain, signature }) ) ],
-                action
-        ];
+        const data = action.data.map( signature => actors({ obtain, signature }) );
+        return [ [ ...acc, ...data ], { ...action, data } ];
       }
     },
       data => data.map( signature => actors({ obtain, signature }))
   );
 
+};
+
+const unitsDT = ( { obtain } ) => {
+  
+	return stream2( null, (e, controller) => {
+	  
+	    const store = new Map();
+	  
+	    function handler(unit, data) {
+	      
+	      debugger;
+	      
+		    store.set(unit, data);
+	        e( [ [...store.values()] ] );
+        }
+	  
+		controller.to( units( { obtain } ).on( ([ data, action ]) => {
+		  
+		  if( !action.name ) {
+			  debugger
+			  controller.todisconnect(...data.map( unit => unit.on((data) => handler(unit, data)) ));
+          }
+		  
+		  else if(action.name === "create") {
+			  debugger
+			  controller.todisconnect(...action.data.map( unit => unit.on((data) => handler(unit, data)) ));
+          }
+		  
+        } ) );
+    })
+        .store()
+	
 };
 
 //const ups = () => stream2.ups();
@@ -51,7 +86,8 @@ const units = ({ obtain }) => {
 const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
 export default {
-
+	
+  ["units-data"]: unitsDT,
   players,
   ["remote-service"]: remoteService,
   cells,
