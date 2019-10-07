@@ -61,20 +61,33 @@ const unitsDT = ( { obtain } ) => {
 		    store.set(unit, data);
 	        e( [ [...store.values()] ] );
         }
+		
+		e( [ [ ] ] );
 	  
-		controller.to( units( { obtain } ).on( ([ data, action ]) => {
-		  
-		  if( !action.name ) {
-			  debugger
-			  controller.todisconnect(...data.map( unit => unit.on((data) => handler(unit, data)) ));
-          }
-		  
-		  else if(action.name === "create") {
-			  debugger
-			  controller.todisconnect(...action.data.map( unit => unit.on((data) => handler(unit, data)) ));
-          }
-		  
-        } ) );
+		 units( { obtain } ).connect( (hook) => {
+			controller.to(hook);
+			return ([ data, action ]) => {
+				if( !action.name ) {
+					data.map( unit => unit.connect(hook => {
+						controller.todisconnect(hook);
+						debugger;
+						return (data) => handler(unit, data);
+					}) );
+				}
+				else if(action.name === "create") {
+					action.data.map( unit => {
+						unit.__$ = "cell";
+						unit.connect(
+							hook => {
+								controller.todisconnect(hook);
+								return (data) => handler(unit, data)
+							})
+						}
+					);
+				}
+			}
+		} );
+	   
     })
         .store()
 	

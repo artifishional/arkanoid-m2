@@ -7,5 +7,5 @@ const remoteServiceConnection =
   });
 
 export default ({ obtain, signature }) => {
-  return stream2.fromRemouteService(remoteServiceConnection, signature).store();
+  return stream2.fromRemoteService(remoteServiceConnection, signature).store();
 }
