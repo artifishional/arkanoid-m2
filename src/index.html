@@ -14,6 +14,23 @@
     }
   </style>
   <svg xmlns="http://www.w3.org/2000/svg">
+
+
+    <unit stream = "@units" kit >
+      <unit tee = {kind:"cell",active:true} >
+        <keyframe>
+          <key prop = {x:(x),y:(y)}></key>
+        </keyframe>
+        <unit stream = "@main/defs">
+          <keyframe>
+            <key prop = {width:(CELL.WIDTH),height:(CELL.HEIGHT)}></key>
+          </keyframe>
+          <rect></rect>
+        </unit>
+      </unit>
+    </unit>
+
+    <!--
     <unit stream = "@main/defs">
       <keyframe>
         <key prop = {width:(SHIP.WIDTH),height:(SHIP.HEIGHT)}></key>
@@ -49,5 +66,7 @@
         </unit>
       </unit>
     </unit>
+    -->
+
   </svg>
 </unit>

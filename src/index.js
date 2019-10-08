@@ -36,14 +36,18 @@ const unitsMR = ( { obtain } ) => {
 
 const units = ({ obtain }) => {
 
-  return unitsMR( { obtain } ).reduceF(
+  return obtain("@units-manager").reduceF(
     (acc, [ data, action ]) => {
       if(action.name === "create") {
         const data = action.data.map( signature => actors({ obtain, signature }) );
         return [ [ ...acc, ...data ], { ...action, data } ];
       }
     },
-      data => data.map( signature => actors({ obtain, signature }))
+      data => {
+    		return data.map( signature => {
+    			return actors({ obtain, signature })
+				})
+			}
   );
 
 };
@@ -55,28 +59,23 @@ const unitsDT = ( { obtain } ) => {
 	    const store = new Map();
 	  
 	    function handler(unit, data) {
-	      
-	      debugger;
-	      
 		    store.set(unit, data);
 	        e( [ [...store.values()] ] );
         }
 		
 		e( [ [ ] ] );
-	  
-		 units( { obtain } ).connect( (hook) => {
+
+			obtain("@units").connect( (hook) => {
 			controller.to(hook);
 			return ([ data, action ]) => {
 				if( !action.name ) {
 					data.map( unit => unit.connect(hook => {
 						controller.todisconnect(hook);
-						debugger;
 						return (data) => handler(unit, data);
 					}) );
 				}
 				else if(action.name === "create") {
 					action.data.map( unit => {
-						unit.__$ = "cell";
 						unit.connect(
 							hook => {
 								controller.todisconnect(hook);
@@ -99,11 +98,12 @@ const unitsDT = ( { obtain } ) => {
 const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
 export default {
-	
+
+	["units-manager"]: unitsMR,
   ["units-data"]: unitsDT,
   players,
   ["remote-service"]: remoteService,
-  cells,
+  //cells,
   defs,
   controller,
   ups,
