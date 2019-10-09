@@ -92,6 +92,14 @@ const unitsDT = ( { obtain } ) => {
 	
 };
 
+const celld = () => {
+
+	return stream2( null, e => {
+		e([ { kind: "cell", active: true, x: 10, y: 10 } ]);
+	} );
+
+};
+
 //const ups = () => stream2.ups();
 
 //const socket = new WebSocket("ws://localhost:3000");
@@ -99,6 +107,7 @@ const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
 export default {
 
+	celld,
 	["units-manager"]: unitsMR,
   ["units-data"]: unitsDT,
   players,
