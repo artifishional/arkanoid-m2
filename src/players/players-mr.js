@@ -7,7 +7,7 @@ export default ({ obtain }) =>
 		.reduceF(
 			obtain("@remote-service", { name: "players-manager" }),
 			(acc, [ data, action ]) => {
-				if(action.name === "login") {
+				if(action.name === "player-login") {
 					return [ [ ...acc, ...action.data ], action ];
 				}
 			},

@@ -21,7 +21,7 @@ function cells ({ schema, obtain }) {
 const unitsMR = ( { obtain } ) => {
 
   return stream2( null, (e) => {
-  
+
   } )
 	.reduceF(
       obtain("@remote-service", { name: "units-manager" }),
@@ -29,6 +29,14 @@ const unitsMR = ( { obtain } ) => {
 	      if(action.name === "create") {
 		      return [ [ ...acc, ...action.data ], action ];
 	      }
+	      else if(action.name === "player-login") {
+					return [ [
+						...acc,
+						{ kind: "player", id: data.id },
+						{ kind: "shell", player: { id: data.id } },
+						{ kind: "ship", player: { id: data.id } },
+						], action ];
+				}
       },
 	);
 
