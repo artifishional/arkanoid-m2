@@ -4,7 +4,7 @@ import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
 stream2.UPS.set(1);
-import * as players from "./players"
+import { playersMR } from './players';
 
 const MAPPER = [
   ...Array(1)
@@ -20,7 +20,11 @@ function cells ({ schema, obtain }) {
 
 const unitsMR = ( { obtain } ) => {
 
-  return stream2( null, (e) => {
+	return stream2( null, (e, controller) => {
+
+		controller.tocommand( () => {
+			debugger;
+		} );
 
   } )
 	.reduceF(
@@ -118,7 +122,7 @@ export default {
 	celld,
 	["units-manager"]: unitsMR,
   ["units-data"]: unitsDT,
-  players,
+  ["players-manager"]: playersMR,
   ["remote-service"]: remoteService,
   //cells,
   defs,

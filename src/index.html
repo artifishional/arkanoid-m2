@@ -1,4 +1,11 @@
 <unit stream = "@main/defs">
+
+  <unit onglobalkeydown = req("player-reaction") stream = "@players-manager">
+    <div></div>
+  </unit>
+
+  <unit>
+
   <keyframe>
     <key prop = '{viewBox:"0 0 " + (CANVAS.WIDTH) + " " + (CANVAS.HEIGHT),width:(CANVAS.WIDTH),height:(CANVAS.HEIGHT)}'></key>
   </keyframe>
@@ -69,4 +76,7 @@
     -->
 
   </svg>
+
+  </unit>
+
 </unit>

@@ -1,14 +1,21 @@
 import {stream2} from "m2"
 
-export default ({ obtain }) =>
-	stream2(null, (e) => {
+export default ({ obtain }) => {
 
-	})
-		.reduceF(
-			obtain("@remote-service", { name: "players-manager" }),
-			(acc, [ data, action ]) => {
-				if(action.name === "player-login") {
-					return [ [ ...acc, ...action.data ], action ];
-				}
-			},
-		)
+	return stream2(null, (e, controller) => {
+
+		obtain("@units-manager").connect(
+			hook => {
+
+				controller.tocommand( (com) => {
+					debugger;
+				} );
+
+				controller.to(hook);
+
+
+				return e;
+			});
+	});
+
+}
