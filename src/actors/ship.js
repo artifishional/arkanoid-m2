@@ -20,7 +20,7 @@ export default ({ obtain, player, id }) => obtain("@ups")
         x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);
         const x1 = x + SHIP.WIDTH;
         const y1 = y + SHIP.HEIGHT;
-        return [{ active, x, y, x1, y1, id }];
+        return [{ kind: "ship", active, x, y, x1, y1, id }];
       }
     }
   );

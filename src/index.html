@@ -35,6 +35,28 @@
           <rect></rect>
         </unit>
       </unit>
+      <unit tee = {kind:"shell"} >
+        <keyframe>
+          <key prop = {cx:(cx),cy:(cy)}></key>
+        </keyframe>
+        <unit stream = "@defs">
+          <keyframe>
+            <key prop = {rx:(SHELL.R),ry:(SHELL.R)}></key>
+          </keyframe>
+          <ellipse></ellipse >
+        </unit>
+      </unit>
+      <unit tee = {kind:"ship"} >
+        <keyframe>
+          <key prop = {x:(x),y:(y)}></key>
+        </keyframe>
+        <unit stream = "@defs">
+          <keyframe>
+            <key prop = {width:(SHIP.WIDTH),height:(SHIP.HEIGHT)}></key>
+          </keyframe>
+          <rect></rect>
+        </unit>
+      </unit>
     </unit>
 
     <!--

@@ -22,8 +22,10 @@ const unitsMR = ( { obtain } ) => {
 
 	return stream2( null, (e, controller) => {
 
-		controller.tocommand( () => {
-			debugger;
+		controller.tocommand( (action) => {
+			if(action === "player-reaction") {
+				e( [ { id: 777 } , { name: "player-login" } ] );
+			}
 		} );
 
   } )
@@ -34,12 +36,15 @@ const unitsMR = ( { obtain } ) => {
 		      return [ [ ...acc, ...action.data ], action ];
 	      }
 	      else if(action.name === "player-login") {
-					return [ [
-						...acc,
-						{ kind: "player", id: data.id },
+	      	const addiction = [
+						//{ kind: "player", id: data.id },
 						{ kind: "shell", player: { id: data.id } },
 						{ kind: "ship", player: { id: data.id } },
-						], action ];
+					];
+					return [
+						[ ...acc, ...addiction ],
+						{ name: "create", data: addiction, }
+					];
 				}
       },
 	);

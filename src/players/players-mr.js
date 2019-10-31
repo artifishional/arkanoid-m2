@@ -6,14 +6,7 @@ export default ({ obtain }) => {
 
 		obtain("@units-manager").connect(
 			hook => {
-
-				controller.tocommand( (com) => {
-					debugger;
-				} );
-
 				controller.to(hook);
-
-
 				return e;
 			});
 	});
