@@ -31,13 +31,18 @@ const unitsMR = ( { obtain } ) => {
   } )
 	.reduceF(
       obtain("@remote-service", { name: "units-manager" }),
-      (acc, [ data, action ]) => {
+      ([acc], [ data, action ]) => {
 	      if(action.name === "create") {
 		      return [ [ ...acc, ...action.data ], action ];
 	      }
 	      else if(action.name === "player-login") {
+
+	      	if(acc.some(({ kind }) => kind === "player")) {
+						return ;
+					}
+
 	      	const addiction = [
-						//{ kind: "player", id: data.id },
+						{ kind: "player", id: data.id },
 						{ kind: "shell", player: { id: data.id } },
 						{ kind: "ship", player: { id: data.id } },
 					];

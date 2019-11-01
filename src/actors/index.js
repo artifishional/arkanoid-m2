@@ -1,6 +1,7 @@
 import ship from "./ship"
 import shell from "./shell"
 import cell from "./cell"
+import playeR from "./player"
 
 let ACTORS_UNIQUE_ID_COUNTER = 1;
 
@@ -14,6 +15,8 @@ export default ( { obtain, player, signature: { kind, ...signature } }) => {
 	else if(kind === "cell") {
 		return cell({ obtain, signature, id: ACTORS_UNIQUE_ID_COUNTER++ });
 	}
+	else if(kind === "player") {
+		return playeR({ obtain, signature, id: ACTORS_UNIQUE_ID_COUNTER++ });
+	}
   throw "unsupported actor model kind";
-  
 }
