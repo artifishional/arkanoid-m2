@@ -1,4 +1,3 @@
-import { stream2 } from "m2"
 import { CANVAS, SHIP } from '../defs';
 
 const { min, max } = Math;
@@ -8,10 +7,16 @@ function ship({ x, y, ...state }) {
 }
 
 export default ({ obtain, player, id }) => obtain("@ups")
+  //controller layer
   .withlatest(
     [obtain("@controller", { id: player })],
     (ups, [ controller ]) => [ controller ]
   )
+  //controller layer
+  .filter( ([{axis}]) => axis )
+  //controller layer
+  .configure({ stmp: true, slave: true })
+  //first confirmation reducer layer
   .reduceF(
     obtain("@remote-service", { name: "ship" }),
     ([ { active, x, y, id } ], [{ axis }]) => {
@@ -23,4 +28,5 @@ export default ({ obtain, player, id }) => obtain("@ups")
         return [{ kind: "ship", active, x, y, x1, y1, id }];
       }
     }
-  );
+  )
+.log()

@@ -24,5 +24,4 @@ export default ( ) => {
 				}
 			}
 		} )
-		.configure({ stmp: true, slave: true })
 }
