@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "uniqid": "^5.0.3",
-    "air-application": "git+ssh://git@github.com:artifishional/air-application.git#nvmi",
-    "air-anime": "git+https://git@github.com:artifishional/air-anime.git#nvmi",
-    "air-m2": "git+ssh://git@github.com:artifishional/air-m2.git#nvmi",
-    "air-stream": "git+ssh://git@github.com:artifishional/air-stream.git#draft"
+    "air-stream": "git+ssh://git@github.com:artifishional/air-stream.git#s2s",
+    "air-m2": "git+ssh://git@github.com:artifishional/air-m2.git#s2s"
+  },
+  "devDependencies": {
+    "air-m2-builder2": "git+ssh://git@github.com:artifishional/air-m2-builder2.git#s2s"
   }
 }
