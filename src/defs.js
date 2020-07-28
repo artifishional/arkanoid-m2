@@ -22,5 +22,5 @@ export const CELL = {
 	HEIGHT: 50,
 };
 
-export default () => stream( null, e => e( [{ CANVAS, SHIP, SHELL, CELL }] ) )
-	.store();
+export default () => stream
+	.fromFn(() => [{ CANVAS, SHIP, SHELL, CELL }]);

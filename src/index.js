@@ -3,7 +3,6 @@ import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
-stream2.UPS.set(1);
 import { playersMR } from './players';
 
 const MAPPER = [
@@ -127,18 +126,19 @@ const celld = () => {
 //const socket = new WebSocket("ws://localhost:3000");
 const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
+const gameState = ({ obtain }) => {
+	return obtain('@remote-service', { path: 'game-state' });
+};
+
+const intl = () => {
+	return stream2.fromFn(() => [{ locale: 'ru' }]);
+};
+
 export default {
 
-	celld,
-	["units-manager"]: unitsMR,
-  ["units-data"]: unitsDT,
-  ["players-manager"]: playersMR,
-  ["remote-service"]: remoteService,
-  //cells,
-  defs,
-  controller,
-  ups,
-  units,
-  actors,
+	intl,
+	['remote-service']: remoteService,
+	defs,
+	['game-state']: gameState,
 
 }
