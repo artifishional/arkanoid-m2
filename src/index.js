@@ -3,6 +3,7 @@ import actors from "./actors"
 import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
+import * as player from './players'
 import { playersMR } from './players';
 
 const MAPPER = [
@@ -127,7 +128,11 @@ const celld = () => {
 const ups = ({ obtain }) => obtain("@remote-service", { name: "ups" });
 
 const gameState = ({ obtain }) => {
-	return obtain('@remote-service', { path: 'game-state' });
+	return stream2
+		.fromCbFn(() => {})
+		.reduceRemote(
+			() => {}, obtain('@remote-service', { path: 'game-state' })
+		);
 };
 
 const intl = () => {
@@ -137,8 +142,10 @@ const intl = () => {
 export default {
 
 	intl,
+	controller,
 	['remote-service']: remoteService,
 	defs,
 	['game-state']: gameState,
+	player,
 
 }

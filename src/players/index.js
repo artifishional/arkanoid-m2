@@ -1,1 +1,1 @@
-export { default as playersMR } from "./players-mr"
+export { default as ship } from './ship'
