@@ -8,5 +8,10 @@ export default ({ obtain, player: { id } }) => {
       }
       return stream2.emptyChannel();
     })
-    .gripFirst();
+    .gripFirst()
+    .reduceRemote(
+      () => {}, obtain(
+        '@remote-service',
+        { path: 'ship', args: { player: { id } } },
+    ));
 }
