@@ -4,7 +4,6 @@ import controller from "./controller"
 import {default as defs} from "./defs"
 import remoteService from "./remote-service"
 import * as player from './players'
-import { playersMR } from './players';
 
 const MAPPER = [
   ...Array(1)
@@ -140,12 +139,10 @@ const intl = () => {
 };
 
 export default {
-
 	intl,
 	controller,
 	['remote-service']: remoteService,
 	defs,
 	['game-state']: gameState,
 	player,
-
 }

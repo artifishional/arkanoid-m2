@@ -2,11 +2,8 @@ import { stream2 as stream } from "m2"
 
 export default ( ) => {
 	return stream
-		.merge([
-			stream.fromevent(window, "keydown"),
-			stream.fromevent(window, "keyup"),
-		])
-		.reduceF( [ { axis: 0 } ], ( [{ axis }], { key, type }) => {
+		.fromEvent(window, 'keyup keydown')
+		.reduce(([{ axis }], { key, type }) => {
 			if(type === "keydown") {
 				if(key === "ArrowRight") {
 					return [ { axis: 1 } ];
@@ -23,5 +20,5 @@ export default ( ) => {
 					return [ { axis: 0 } ];
 				}
 			}
-		} )
+		}, { local: [{ axis: 0 }] })
 }

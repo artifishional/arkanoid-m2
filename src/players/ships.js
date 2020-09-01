@@ -1,7 +1,7 @@
 export default ({ obtain }) =>
-  obtain('game-state')
+  obtain('@game-state')
     .factory(
-      ({ players }) => players,
-      ({ id }) => obtain('ship', { player: { id } }),
+      ({ id }) => obtain('@ship', { player: { id } }),
+      ([{ players }]) => players,
       ({ id: a }, { id: b }) => a === b,
     );

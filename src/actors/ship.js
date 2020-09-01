@@ -18,7 +18,7 @@ export default ({ obtain, player, id }) => obtain("@ups")
   .configure({ stmp: true, slave: true })
   //first confirmation reducer layer
   .reduceF(
-    obtain("@remote-service", { name: "ship" }),
+    obtain("@remote-service", { name: "ship", args: { id } }),
     ([ { active, x, y, id } ], [{ axis }]) => {
       if(axis) {
         x += axis * SHIP.SPEED;

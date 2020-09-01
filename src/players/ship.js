@@ -1,8 +1,8 @@
 import { stream2 } from 'air-stream';
 
-export default ({ obtain, player: { id } }) => {
-  obtain('@user')
-    .map(({ user: { id: x } }) => {
+export default ({ obtain, player: { id } }) =>
+  obtain('@player/player')
+    .map(([{ id: x }]) => {
       if (x === id) {
         return obtain('@controller');
       }
@@ -14,4 +14,3 @@ export default ({ obtain, player: { id } }) => {
         '@remote-service',
         { path: 'ship', args: { player: { id } } },
     ));
-}

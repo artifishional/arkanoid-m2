@@ -1,7 +1,6 @@
 import ship from "./ship"
 import shell from "./shell"
 import cell from "./cell"
-import playeR from "./player"
 
 let ACTORS_UNIQUE_ID_COUNTER = 1;
 
