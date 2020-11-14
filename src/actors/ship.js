@@ -6,27 +6,20 @@ function ship({ x, y, ...state }) {
   return { active: true, x, y, ...state, x1: x + SHIP.WIDTH, y1: y + SHIP.HEIGHT };
 }
 
-export default ({ obtain, player, id }) => obtain("@ups")
-  //controller layer
+export default ({ obtain, player, id }) => obtain('@ups')
   .withlatest(
-    [obtain("@controller", { id: player })],
-    (ups, [ controller ]) => [ controller ]
+    [obtain('@controller', { id: player })],
+    (ups, [controller]) => [controller]
   )
-  //controller layer
-  .filter( ([{axis}]) => axis )
-  //controller layer
-  .configure({ stmp: true, slave: true })
-  //first confirmation reducer layer
-  .reduceF(
-    obtain("@remote-service", { name: "ship", args: { id } }),
-    ([ { active, x, y, id } ], [{ axis }]) => {
-      if(axis) {
+  .reduceRemote(
+    ([{ active, x, y, id }], [{ axis }]) => {
+      if (axis) {
         x += axis * SHIP.SPEED;
         x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);
         const x1 = x + SHIP.WIDTH;
         const y1 = y + SHIP.HEIGHT;
-        return [{ kind: "ship", active, x, y, x1, y1, id }];
+        return [{ kind: 'ship', active, x, y, x1, y1, id }];
       }
-    }
-  )
-.log()
+    },
+    obtain('@remote-service', { name: 'ship', args: { id } }),
+  );
