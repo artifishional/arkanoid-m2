@@ -6,14 +6,18 @@ export default ({ obtain, player: { id } }) =>
       obtain('@player/player')
         .map(([{ id: x }]) => {
           if (x === id) {
-            return obtain('@controller');
+            return obtain('@controller', { player: { id } });
           }
           return stream.emptyChannel();
         })
         .gripFirst(),
     ])
-    .reduceRemote(
-      () => {}, obtain(
-        '@remote-service',
-        { path: 'ship', args: { player: { id } } },
-      ));
+    .reduce(
+      (data) => data, {
+        remote: obtain(
+          '@remote-service',
+          { path: 'ship', args: { player: { id } } }
+        )
+      },
+      { label: 'alpha' }
+    );
