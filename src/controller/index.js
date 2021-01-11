@@ -1,4 +1,4 @@
-import { stream2 as stream } from 'm2'
+import { stream2 as stream } from 'm2';
 
 export default ({ obtain, player: { id } }) => {
 	return stream

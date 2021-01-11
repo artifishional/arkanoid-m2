@@ -1,4 +1,6 @@
 import { stream2 as stream } from 'air-stream';
+import { CANVAS, SHIP } from "../defs";
+const { min, max } = Math;
 
 export default ({ obtain, player: { id } }) =>
   obtain('@ups')
@@ -13,11 +15,22 @@ export default ({ obtain, player: { id } }) =>
         .gripFirst(),
     ])
     .reduce(
-      (data) => data, {
+      (acc, [, [{ axis }]]) => {
+        let [{ active, x, y, id }] = acc;
+        if (axis) {
+          x += axis * SHIP.SPEED;
+          x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);
+          const x1 = x + SHIP.WIDTH;
+          const y1 = y + SHIP.HEIGHT;
+          return [{ ...acc[0], active, x, y, x1, y1, id }];
+        }
+        return acc;
+      }, {
         remote: obtain(
           '@remote-service',
           { path: 'ship', args: { player: { id } } }
         )
       },
       { label: 'alpha' }
-    );
+    )
+    .distinct();
