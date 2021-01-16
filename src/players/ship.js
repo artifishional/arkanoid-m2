@@ -15,13 +15,14 @@ export default ({ obtain, player: { id } }) =>
         .gripFirst(),
     ])
     .reduce(
-      (acc, [, [{ axis }]]) => {
-        let [{ active, x, y, id }] = acc;
+      (acc, [ups, [{ axis }]]) => {
         if (axis) {
+          let [{ active, x, y, id }] = acc;
           x += axis * SHIP.SPEED;
           x = min(max(-SHIP.WIDTH / 2, x), CANVAS.WIDTH - SHIP.WIDTH / 2);
           const x1 = x + SHIP.WIDTH;
           const y1 = y + SHIP.HEIGHT;
+          console.log(ups, x);
           return [{ ...acc[0], active, x, y, x1, y1, id }];
         }
         return acc;
